@@ -11,7 +11,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
     crossorigin="anonymous"></script>
-  <script src="./widget-helper.js"></script>
+  <script src="./awli-widget-helper.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
   <script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"></script>
 </head>
@@ -73,38 +73,29 @@
     </form>
   </div>
 
-  <div id="widget-container">
-    <script type="text/javascript" 
-        src="https://www.linkedin.com//mjobs/awli/awliWidget">
-    </script>
-    <div class="container">
-      <script type="IN/AwliWidget"  
-          data-company-job-code="test-1234" 
-          data-integration-context="urn:li:organization:1337"
-          data-mode="BUTTON_DATA" 
-          data-callback-method="handleProfileData" 
-          data-api-key="77q8xmpyw5z8fj"
-          data-allow-sign-in="true">
-      </script>
-    </div>
-  </div>
 
-<!--
-  </div>
-    <script src="https://platform.linkedin.com/xdoor/scripts/in.js">
-      api_key: 77q8xmpyw5z8fj
-      userSessionEnabled: true
-      extensions: AwliWidget @https://www.linkedin.com/talentwidgets/extensions/apply-with-linkedin-widget-v3
+  <div id="widget-holder">
+    <script type="text/javascript" 
+         src="https://linkedin.com/mjobs/awli/awliWidget">
     </script>
-    <div class="container">
-      <script type="IN/AwliWidget" data-integration-context="urn:li:organization:1337" data-mode="BUTTON_DATA"
-        data-callback-method="handleProfileData" data-height="50"></script>
-    </div>
+    <script type="IN/AwliWidget"  
+        data-company-job-code="test-1234" 
+        data-integration-context="urn:li:organization:1337"
+        data-mode="BUTTON_DATA" 
+        data-callback-method="handleProfileData" 
+        data-api-key="77q8xmpyw5z8fj"
+        data-allow-sign-in="true">
+    </script>
   </div>
--->
+ 
+
   <form id="profile-data-container" class="container well">
     <h4>Profile data will show here</h4>
     <div id="profile_data_form"></div>
+    <div class="form-group">
+      <label for="signature">Signature</label>
+      <input class="form-control" type="text" id="signature">
+    </div>
     <!-- <div class="form-group">
       <label for="firstname">First Name</label>
       <input class="form-control" type="text" id="firstname">
@@ -154,11 +145,15 @@
       });
     };
 
-    function handleProfileData(profileResponse) {
-      console.log('profileResponse', profileResponse);
-      const profileData = profileResponse.profileData;
-      editor.setValue(profileResponse);
-      // var firstnameField = document.getElementById('firstname');
+    function handleProfileData(profileData, signature) {
+      console.log('profileData', profileData);
+      console.log(signature);
+      
+      var signatureField = document.getElementById('signature');
+      signatureField.value = signature;
+
+      editor.setValue(profileData);
+      
       // var lastnameField = document.getElementById('lastname');
       // var headlineField = document.getElementById('headline');
       // var educationField = document.getElementById('education');
