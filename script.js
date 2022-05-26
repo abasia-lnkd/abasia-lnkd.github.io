@@ -161,7 +161,7 @@ function getDomain() {
     return 'pemberly.www.linkedin.com:4443';
   }
 
-  return 'www.linkedin-ei.com';
+  return 'www.linkedin.com';
 }
 
 function renderWidgetWithPresetValues(e) {
