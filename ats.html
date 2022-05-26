@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript" src="https://platform.linkedin.com/xdoor/scripts/in.js">
+             api_key: 85utacj9k5z8j1
+             extensions: ApplicantHighlights@http://localhost:9000/talentwidgets/extensions/applicant-highlights-widget
+     </script>
+     <script type="IN/ApplicantHighlights" data-li-job-application-id="urn:li:jobApplication:7354044924"
+         data-ats-job-posting-id="mark-applyconnect1" data-applicant-email="msmyth@linkedin.com"
+         data-li-applicant-profile-url="https://www.linkedin.com/in/smythmark"
+         data-integration-context="urn:li:organization:70540833">
+     </script>
+  </body>
+</html>
+
+ <div class="text-center">
+        <script type="text/javascript" src="https://platform.linkedin.com/xdoor/scripts/in.js">
+            api_key: 85utacj9k5z8j1
+            extensions: ATSIntegrationWidget@https://www.linkedin-ei.com/recruiter/widget/ATSIntegration
+        </script>
+        <script type="IN/ATSIntegrationWidget"
+                data-onintegrate="integrate"
+                data-onconfigchange="configchange"
+                data-supported-bundled-integration-types="RECRUITER_SYSTEM_CONNECT_COMPANY,RECRUITER_SYSTEM_CONNECT_CONTRACT,APPLY_WITH_LINKEDIN,APPLY_STARTERS_EXP,LINKEDIN_MATCH,APPLY_CONNECT"
+                data-width="850">
+        </script>
+        <script type="IN/Debug"></script>
+        <script>
+            function configchange(integration) {
+                var i, url, request,  html, node, parent, newNode;
+                html = '<div class="section-title">Simulator received config change for following integration</div>';
+                html += '<li>integrationContext: ' + integration.integrationContext + ' integrationType: '
+                        + integration.integrationType + ' tenantType: ' + integration.tenantType
+                               + ' configuration: ';
+                for (const [key, value] of Object.entries(integration.configuration)) {
+                  html += key + ' => ' + value + '</li>';
+                };
+                node = document.getElementById('integrationConfiguration');
+                parent = node.parentNode;
+                node.remove();
+                newNode = document.createElement("div");
+                newNode.setAttribute('id', 'integrationConfiguration');
+                newNode.setAttribute('class', 'integrationConfiguration fade-in');
+                newNode.innerHTML = html;
+                parent.appendChild(newNode);
+            }
+            function integrate(integrations) {
+                var i, url, request,  html, node, parent, newNode;
+                html = '<div class="section-title">Simulator received ' + integrations.length + ' integration request(s)</div>';
+                html += '<ul>'
+                for (i = 0; i < integrations.length; i++) {
+                    html += '<li>integrationContext: ' + integrations[i].integrationContext + ' integrationType: '
+                        + integrations[i].integrationType + ' tenantType: ' + integrations[i].tenantType + '</li>';
+                    url = "http://tazheng-ld1.linkedin.biz/ats/index.php/api/integration/" + integrations[i].integrationContext
+                        + "/" + integrations[i].integrationType + "/" + integrations[i].tenantType;
+                    //request = new XMLHttpRequest();
+                    //request.open('GET', url, false);
+                    //request.send();
+                }
+                html += '</ul>';
+                document.getElementById('integrationConfiguration').innerHTML = "";
+                node = document.getElementById('integrations');
+                parent = node.parentNode;
+                node.remove();
+                newNode = document.createElement("div");
+                newNode.setAttribute('id', 'integrations');
+                newNode.setAttribute('class', 'integrations fade-in');
+                newNode.innerHTML = html;
+                parent.appendChild(newNode);
+            }
+
+            function useDefault() {
+                window.location.href = "?";
+            }
+        </script>
+    </div>

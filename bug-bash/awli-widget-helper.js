@@ -1,14 +1,14 @@
 function renderWidget(params, apiKey, env) {
-    let widgetContainerElem = document.querySelector('#widget-container');
+    let widgetContainerElem = document.querySelector('#widget-holder');
     widgetContainerElem.innerHTML = '';
     let xdoorElem = document.createElement('script');
-    const xdoorUrl = `https://platform.linkedin${env === 'EI' ? '-ei' : ''}.com/in.js`;
-    const widgetUrl = `https://www.linkedin${env === 'EI' ? '-ei' : ''}.com/talentwidgets/extensions/apply-with-linkedin-widget-v3`;
+    const xdoorUrl = `https://www.linkedin${env === 'EI' ? '-ei' : ''}.com/talentwidgets/extensions/apply-with-linkedin-widget-script?apiKey=${apiKey}`;
+    //const widgetUrl = `https://www.linkedin${env === 'EI' ? '-ei' : ''}.com/talentwidgets/extensions/apply-with-linkedin-widget-v3`;
     xdoorElem.src = xdoorUrl;
-    xdoorElem.innerHTML = `api_key:${apiKey}
-      extensions:AwliWidget@${widgetUrl}
-      userSessionEnabled: true
-      `;
+    //xdoorElem.innerHTML = `api_key:${apiKey}
+      //extensions:AwliWidget@${widgetUrl}
+      //userSessionEnabled: true
+     // `;
 
     let widgetElem = document.createElement('script');
     widgetElem.type = 'IN/AwliWidget';
@@ -16,6 +16,7 @@ function renderWidget(params, apiKey, env) {
         const paramValue = params[paramKey];
         widgetElem.setAttribute(paramKey,paramValue);
     }
+    
     widgetElem.setAttribute('data-callback-method', 'handleProfileData');
     widgetElem.setAttribute('data-company-job-code', 'test-1234'); 
     // widgetElem.setAttribute('data-integration-context', params['data-integration-context']);
@@ -45,11 +46,10 @@ function renderWidgetWithCustomValues(e, dataParams) {
     }
     renderWidget(params, apiKey, env);
 }
-const AWLI_params = ['data-integration-context', 'data-mode', 'data-color', 'data-size'];
+const AWLI_params = ['data-integration-context', 'data-api-key', 'data-mode', 'data-color', 'data-size'];
 function init() {
     document.querySelector('#renderBtn')
         .addEventListener('click', (e) => renderWidgetWithCustomValues(e, AWLI_params));
-
 
 }
 window.addEventListener('load', init);
